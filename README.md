@@ -15,6 +15,7 @@ We are using:
 |DQ (Yellow wire)|Raspberry Pi GPIO 17|
 |VDD (Red wire)|Resistor 4,7k ohm|
 |Resistor|Raspberry Pi 3v3|
+
 See wiring diagram at Design folder or at Documentation for RL application
 
 **Enable 1-Wire**
@@ -32,6 +33,7 @@ See wiring diagram at Design folder or at Documentation for RL application
  - The YES in the first line indicates CRC check success (Data Valid). The number following t= is the temperature
  
 **Script Read Temperature**
+
 Here we are using Python to show the temperature. In the *Script* folder, for DS18B20 there are two Python scripts, one (temperature.py) contains all necessary functions to read temperature for the sensor, another one (maintem.py) contains function to read and some logic to determine health based on body temperature.
 
 **How to Use**
@@ -41,4 +43,5 @@ Here we are using Python to show the temperature. In the *Script* folder, for DS
  - Run the script by typing `sudo python maintem.py` *Note: this script must be run by the root user*
  
  **Important Note**
+
 For now, this is just proof of concept!
