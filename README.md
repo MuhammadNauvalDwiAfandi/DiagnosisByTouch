@@ -15,6 +15,7 @@ We are using:
 |DQ (Yellow wire)|Raspberry Pi GPIO 17|
 |VDD (Red wire)|Resistor 4,7k ohm|
 |Resistor|Raspberry Pi 3v3|
+
 See wiring diagram at Design folder or at Documentation for RL application
 
 **Enable 1-Wire**
