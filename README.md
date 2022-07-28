@@ -12,7 +12,7 @@ We are using:
 |DS18B20|Raspberry Pi  |
 |--|--|
 |GND (Black wire) |Raspberry Pi GND |
-|DQ (Yellow wire)|Raspberry Pi GPIO 17|
+|DQ (Yellow wire)|Raspberry Pi GPIO17|
 |VDD (Red wire)|Resistor 4,7k ohm|
 |Resistor|Raspberry Pi 3v3|
 
@@ -39,9 +39,30 @@ Here we are using Python to show the temperature. In the *Script* folder, for DS
 
 **How to Use**
 
+ - Copy the script (maintem.py and temperature.py) to Raspberry Pi. *All the scripts must be put in one folder!*
  - Hold the sensor using one of your hands
  - In Raspberry Pi, run terminal, navigate to where you put the script
  - Run the script by typing `sudo python maintem.py` *Note: this script must be run by the root user*
  
  **Important Note**
 For now, this is just proof of concept!
+
+
+## LED Green
+**Wiring to Raspberry Pi**
+|LED Green|Raspberry Pi  |
+|--|--|
+|Anode (longer leg)|Raspberry Pi GPIO25|
+|Cathode (shorter leg) |Resistor 220 ohm|
+|Resistor 220 ohm | Raspberry Pi GND|
+
+
+See wiring diagram at Design folder or at Documentation for RL application
+
+**Script**
+Here we are using Python to change the LED state. In the *script* folder, for LED there are two Python scripts, one (LED.py) contains all necessary functions for controlling the LED, another one (mainLED.py) contains script to control the LED light.
+
+**How to Use**
+ - Copy the script (mainLED.py and LED.py) to Raspberry Pi. *All the scripts must be put in one folder!*
+ - In Raspberry Pi, using terminal, run mainLED.py `python mainLED.py`
+ - Enter either `On` or `Off` to control the LED
