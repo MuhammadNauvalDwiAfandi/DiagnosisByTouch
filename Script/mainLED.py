@@ -1,26 +1,49 @@
 from LED import *
 import time
 
-a = 25 #Number of gpio, a = 25 means gpio25
-
 while True:
-    kondisi = input('On or Off: ')
-    if kondisi == 'On' or kondisi == 'on':
-        LED_On(a)
-        print('LED is on!')
-        time.sleep(1)
+    lampu = input('Green or Red: ')
     
-    elif kondisi == 'Off' or kondisi == 'off':
-        LED_Off(a)
-        print('LED is off!')
-        time.sleep(1)
+    if lampu == 'Green':
+        print('Selected: Green')
+        kondisi = input('On or Off: ')
 
-    elif kondisi == 'secret':
-        for k in range(1,11):
-            LED_On(a)
+        if kondisi == 'On' or kondisi == 'on':
+            LEDGreen_On()
             print('LED is on!')
             time.sleep(1)
-            LED_Off(a)
+        
+        elif kondisi == 'Off' or kondisi == 'off':
+            LEDGreen_Off()
+            print('LED is off!')
+            time.sleep(1)
+
+        else:
+            print('Invalid command!')
+
+    elif lampu == 'Red':
+        kondisi = input('On or Off: ')
+        print('Selected: Red')
+
+        if kondisi == 'On' or kondisi == 'on':
+            LEDRed_On()
+            print('LED is on!')
+            time.sleep(1)
+        
+        elif kondisi == 'Off' or kondisi == 'off':
+            LEDRed_Off()
+            print('LED is off!')
+            time.sleep(1)
+
+        else:
+            print('Invalid command!')
+
+    elif lampu == 'secret':
+        for k in range(1,11):
+            LEDGreen_On()
+            print('LED is on!')
+            time.sleep(1)
+            LEDGreen_Off()
             print('LED is off!')
             time.sleep(1)
 
