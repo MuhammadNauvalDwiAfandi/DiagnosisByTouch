@@ -1,5 +1,9 @@
 ## DIAGNOSIS BY TOUCH
 This project is made for Samsung Innovation Campus Batch 3 Stage 3. This repository was made to track the progress we make to build an IoT device.
+
+You can see the full design here:
+[Product Design](https://docs.google.com/presentation/d/1qDALvNa_1nn2KUcgnvzO5qR8LjPEqhXRsp-H-NQz1CA/edit?usp=sharing)
+
 We are using:
 
  - DS18B20 Body Temperature Sensor
@@ -7,6 +11,19 @@ We are using:
  - Raspberry Pi 3 Model B Rev 1.2
  - LED light
  - LCD I2C
+
+
+## Script Content
+All scripts can be found at *Script* folder
+|File Name|Content  |
+|--|--|
+| temperature.py |All the functions necessary to read DS18B20 temperature sensor  |
+|maintem.py|Function to read and some logic to determine health based on body temperature|
+|LED.py|All functions for controlling LED light |
+|mainLED.py|Script to control LED light|
+
+
+
 ## DS18B20 Setup
 **Wiring to Raspberry Pi**
 |DS18B20|Raspberry Pi  |
@@ -48,11 +65,19 @@ Here we are using Python to show the temperature. In the *Script* folder, for DS
 For now, this is just proof of concept!
 
 
-## LED Green
+## LED
 **Wiring to Raspberry Pi**
+LED Green Wiring
 |LED Green|Raspberry Pi  |
 |--|--|
 |Anode (longer leg)|Raspberry Pi GPIO25|
+|Cathode (shorter leg) |Resistor 220 ohm|
+|Resistor 220 ohm | Raspberry Pi GND|
+
+LED Red Wiring
+| LED Red | Raspberry Pi |
+|--|--|
+|Anode (longer leg)|Raspberry Pi GPIO8|
 |Cathode (shorter leg) |Resistor 220 ohm|
 |Resistor 220 ohm | Raspberry Pi GND|
 
@@ -65,4 +90,5 @@ Here we are using Python to change the LED state. In the *script* folder, for LE
 **How to Use**
  - Copy the script (mainLED.py and LED.py) to Raspberry Pi. *All the scripts must be put in one folder!*
  - In Raspberry Pi, using terminal, run mainLED.py `python mainLED.py`
- - Enter either `On` or `Off` to control the LED
+ - Enter either `Green` or `Red`
+ - Then enter either `On` or `Off` to control the LED

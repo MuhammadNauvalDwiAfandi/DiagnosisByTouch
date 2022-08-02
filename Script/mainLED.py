@@ -41,9 +41,11 @@ while True:
     elif lampu == 'secret':
         for k in range(1,11):
             LEDGreen_On()
+            LEDRed_On()
             print('LED is on!')
             time.sleep(1)
             LEDGreen_Off()
+            LEDRed_Off()
             print('LED is off!')
             time.sleep(1)
 
