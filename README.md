@@ -14,15 +14,24 @@ We are using:
 
 
 ## Script Content
-All scripts can be found at *Script* folder
+**All Files at Script Folder**
+
 |File Name|Content  |
 |--|--|
 | temperature.py |All the functions necessary to read DS18B20 temperature sensor  |
 |maintem.py|Function to read and some logic to determine health based on body temperature|
 |LED.py|All functions for controlling LED light |
-|mainLED.py|Script to control LED light|
+|mainLED.py|Script to control LED light. Required LED.py|
+|mainLEDtem.py| Get temperature data using DS18B20 sensor, then using logic to control LED light with given data|
+|mainLEDsettem.py| Similar with mainLEDtem.py, instead of using data from actual sensor, user can input their own data to control LED light (for testing purpose)|
 
 
+**Logic LED and Temperature**
+mainLEDtem.py and mainLEDsettem.py logic:
+ - Less than or equal to 36C, show `Error: Suhu terlalu rendah`
+ - Between 36C and 37,5C, show `Normal` and turn on LED Green
+ - Between 37,5C and 38,5C, show `Sakit ringan` and turn on LED Red
+ - Above 38,5C, show `Sakit parah` and make LED Red blink
 
 ## DS18B20 Setup
 **Wiring to Raspberry Pi**
