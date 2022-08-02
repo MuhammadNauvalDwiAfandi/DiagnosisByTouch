@@ -1,5 +1,9 @@
 ## DIAGNOSIS BY TOUCH
 This project is made for Samsung Innovation Campus Batch 3 Stage 3. This repository was made to track the progress we make to build an IoT device.
+
+You can see the full design here:
+[Product Design](https://docs.google.com/presentation/d/1qDALvNa_1nn2KUcgnvzO5qR8LjPEqhXRsp-H-NQz1CA/edit?usp=sharing)
+
 We are using:
 
  - DS18B20 Body Temperature Sensor
@@ -7,6 +11,19 @@ We are using:
  - Raspberry Pi 3 Model B Rev 1.2
  - LED light
  - LCD I2C
+
+
+## Script Content
+All scripts can be found at *Script* folder
+|File Name|Content  |
+|--|--|
+| temperature.py |All the functions necessary to read DS18B20 temperature sensor  |
+|maintem.py|Function to read and some logic to determine health based on body temperature|
+|LED.py|All functions for controlling LED light |
+|mainLED.py|Script to control LED light|
+
+
+
 ## DS18B20 Setup
 **Wiring to Raspberry Pi**
 |DS18B20|Raspberry Pi  |
