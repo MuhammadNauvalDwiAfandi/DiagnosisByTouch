@@ -9,28 +9,28 @@ def LEDGreen_On():
     # set GPIO-a pin to HIGH
     GPIO.output(25,GPIO.HIGH)
     # pause for one second
-    time.sleep(1)
+    time.sleep(0.5)
 
 def LEDGreen_Off():
     GPIO.setup(25,GPIO.OUT)
     # set GPIO-a pin to LOW
     GPIO.output(25,GPIO.LOW)
     # pause for one second
-    time.sleep(1)
+    time.sleep(0.5)
 
 def LEDRed_On():
     GPIO.setup(8,GPIO.OUT)
     # set GPIO-a pin to LOW
     GPIO.output(8,GPIO.HIGH)
     # pause for one second
-    time.sleep(1)
+    time.sleep(0.5)
 
 def LEDRed_Off():
     GPIO.setup(8,GPIO.OUT)
     # set GPIO-a pin to LOW
     GPIO.output(8,GPIO.LOW)
     # pause for one second
-    time.sleep(1)
+    time.sleep(0.5)
 
 '''
 Note: 
