@@ -35,7 +35,8 @@ def logic(tmp):
             LEDRed_On()
             LEDRed_Off()
 
+while True:
+    logic(temp_chk())
+    time.sleep(1)
 
-time.sleep(1)
-
-logic(temp_chk())
+    input('Press enter key to continue...')

@@ -2,6 +2,7 @@ from LED import *
 import time
     
 def logic(tmp):
+    print(f'Your current temperature is {tmp}C')
     if tmp <= 36:
         print("Error: Suhu terlalu rendah")
         
@@ -23,9 +24,9 @@ def logic(tmp):
             LEDRed_On()
             LEDRed_Off()
 
+while True:
+    setTem = float(input('Masukkan temperature: '))
+    logic(setTem)
 
-time.sleep(1)
-
-settem = float(input('Masukkan temperature: '))
-logic(settem)
-
+    time.sleep(1)
+    input('Press enter key to continue...')

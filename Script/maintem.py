@@ -9,10 +9,7 @@ def temp_chk():
     time.sleep(30)
     print('Tunggu 30 detik lagi...')
     tmp = read_temp()
-    if st == 'f' or st == 'F':
-        print(f"Your current temperature is {tmp[1]}F")
-    else:
-        print(f"Your current temperatur is {tmp[0]}C")
+    print(f"Your current temperature is {tmp[0]}C {tmp[1]}F")
     return tmp[0]
     
 def logic(tmp):
@@ -25,8 +22,8 @@ def logic(tmp):
     else:
         print('Sakit parah')
 
-time.sleep(1)
+while True:
+    logic(temp_chk())
+    time.sleep(1)
 
-st = input('Satuan? C atau F: ')
-
-logic(temp_chk())
+    input('Press enter key to continue...')
