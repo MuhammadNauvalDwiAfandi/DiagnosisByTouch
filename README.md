@@ -14,7 +14,8 @@ We are using:
 
 
 ## Script Content
-**All Files at Script Folder**
+
+All scripts can be found at *Script* folder
 
 |File Name|Content  |
 |--|--|
@@ -33,6 +34,7 @@ mainLEDtem.py and mainLEDsettem.py logic:
  - Between 36C and 37,5C, show `Normal` and turn on LED Green
  - Between 37,5C and 38,5C, show `Sakit ringan` and turn on LED Red
  - Above 38,5C, show `Sakit parah` and make LED Red blink
+
 
 ## DS18B20 Setup
 **Wiring to Raspberry Pi**
@@ -75,7 +77,6 @@ Here we are using Python to show the temperature. In the *Script* folder, for DS
  - Run the script by typing `sudo python maintem.py` *Note: this script must be run by the root user*
  
  **Important Note**
- 
 For now, this is just proof of concept!
 
 
@@ -148,3 +149,4 @@ Here we are using Python to control the LCD. In the *script* folder, there is te
 **How to Use**
 
 Using terminal, run the script `sudo python testLCD.py`
+
