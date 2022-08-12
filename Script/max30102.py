@@ -3,9 +3,16 @@
 # this code is currently for python 2.7
 from __future__ import print_function
 from time import sleep
+
+import RPi.GPIO as GPIO
 import smbus
 
-# register addresses
+# i2c address-es
+# not required?
+I2C_WRITE_ADDR = 0xAE
+I2C_READ_ADDR = 0xAF
+
+# register address-es
 REG_INTR_STATUS_1 = 0x00
 REG_INTR_STATUS_2 = 0x01
 
@@ -34,14 +41,23 @@ REG_PROX_INT_THRESH = 0x30
 REG_REV_ID = 0xFE
 REG_PART_ID = 0xFF
 
+# currently not used
+MAX_BRIGHTNESS = 255
+
 
 class MAX30102():
+    # by default, this assumes that physical pin 7 (GPIO 4) is used as interrupt
     # by default, this assumes that the device is at 0x57 on channel 1
-    def __init__(self, channel=1, address=0x57):
-        #print("Channel: {0}, address: {1}".format(channel, address))
+    def __init__(self, channel=1, address=0x57, gpio_pin=7):
+        print("Channel: {0}, address: 0x{1:x}".format(channel, address))
         self.address = address
         self.channel = channel
         self.bus = smbus.SMBus(self.channel)
+        self.interrupt = gpio_pin
+
+        # set gpio mode
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(self.interrupt, GPIO.IN)
 
         self.reset()
 
@@ -105,18 +121,6 @@ class MAX30102():
     def set_config(self, reg, value):
         self.bus.write_i2c_block_data(self.address, reg, value)
 
-    def get_data_present(self):
-        read_ptr = self.bus.read_byte_data(self.address, REG_FIFO_RD_PTR)
-        write_ptr = self.bus.read_byte_data(self.address, REG_FIFO_WR_PTR)
-        if read_ptr == write_ptr:
-            return 0
-        else:
-            num_samples = write_ptr - read_ptr
-            # account for pointer wrap around
-            if num_samples < 0:
-                num_samples += 32
-            return num_samples
-
     def read_fifo(self):
         """
         This function will read the data register.
@@ -144,15 +148,15 @@ class MAX30102():
         """
         red_buf = []
         ir_buf = []
-        count = amount
-        while count > 0:
-            num_bytes = self.get_data_present()
-            while num_bytes > 0:
-                red, ir = self.read_fifo()
+        for i in range(amount):
+            while(GPIO.input(self.interrupt) == 1):
+                # wait for interrupt signal, which means the data is available
+                # do nothing here
+                pass
 
-                red_buf.append(red)
-                ir_buf.append(ir)
-                num_bytes -= 1
-                count -= 1
+            red, ir = self.read_fifo()
+
+            red_buf.append(red)
+            ir_buf.append(ir)
 
         return red_buf, ir_buf

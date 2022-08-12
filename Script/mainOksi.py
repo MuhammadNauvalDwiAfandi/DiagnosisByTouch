@@ -1,21 +1,22 @@
-from heartrate_monitor import HeartRateMonitor
-import time
-import argparse
+import max30102
+import hrcalc
 
-parser = argparse.ArgumentParser(description="Read and print data from MAX30102")
-parser.add_argument("-r", "--raw", action="store_true",
-                    help="print raw data instead of calculation result")
-parser.add_argument("-t", "--time", type=int, default=30,
-                    help="duration in seconds to read from sensor, default 30")
-args = parser.parse_args()
+m = max30102.MAX30102()
 
-print('sensor starting...')
-hrm = HeartRateMonitor(print_raw=args.raw, print_result=(not args.raw))
-hrm.start_sensor()
-try:
-    time.sleep(args.time)
-except KeyboardInterrupt:
-    print('keyboard interrupt detected, exiting...')
+hr2 = 0
+sp2 = 0
 
-hrm.stop_sensor()
-print('sensor stoped!')
+while True:
+    red, ir = m.read_sequential()
+    
+    hr,hrb,sp,spb = hrcalc.calc_hr_and_spo2(ir, red)
+
+    print("hr detected:",hrb)
+    print("sp detected:",spb)
+    
+    if(hrb == True and hr != -999):
+        hr2 = int(hr)
+        print("Heart Rate : ",hr2)
+    if(spb == True and sp != -999):
+        sp2 = int(sp)
+        print("SPO2       : ",sp2)
