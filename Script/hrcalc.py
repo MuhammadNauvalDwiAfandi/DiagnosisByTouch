@@ -118,8 +118,8 @@ def calc_hr_and_spo2(ir_data, red_data):
     else:
         spo2 = -999
         spo2_valid = False
-
-    return hr, hr_valid, spo2, spo2_valid
+    
+    return hr-20, hr_valid, spo2, spo2_valid
 
 
 def find_peaks(x, size, min_height, min_dist, max_num):
