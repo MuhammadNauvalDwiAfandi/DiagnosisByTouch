@@ -1,5 +1,5 @@
 from rpi_lcd import LCD
-from mainLEDtem import temp_chk
+from maintem import temp_chk
 import time
 
 lcd = LCD()

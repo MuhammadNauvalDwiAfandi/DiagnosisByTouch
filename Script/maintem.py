@@ -22,8 +22,9 @@ def logic(tmp):
     else:
         print('Sakit parah')
 
-while True:
-    logic(temp_chk())
-    time.sleep(1)
+if __name__ == '__main__':
+    while True:
+        logic(temp_chk())
+        time.sleep(1)
 
-    input('Press enter key to continue...')
+        input('Press enter key to continue...')
