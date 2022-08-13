@@ -30,9 +30,11 @@ def Oksi(devStatus):
             sp2 = int(sp)
             print("SPO2       : ",sp2)
 
+        m.shutdown()
+
     return hr2, sp2
 
-def mainCheck():
+def mainSensor():
     Oksi(False)
     print('Mengukur, tunggu 2 menit...')
     time.sleep(60)
@@ -40,11 +42,13 @@ def mainCheck():
     time.sleep(30)
     print('30 detik lagi...')
     time.sleep(30)
-    temp_chk()
+    temp = temp_chk()
 
     rslt = Oksi(True)
     print(f'Hearth Rate: {rslt[0]}, SPO2: {rslt[1]}')
 
+    return temp, rslt[0], rslt[1]
+
 if __name__ == '__main__':
-    mainCheck()
+    mainSensor()
 
