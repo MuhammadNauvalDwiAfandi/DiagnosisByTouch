@@ -6,7 +6,7 @@ from mainOksi import Oksi
 from sendUbidots import *
 
 def logic(temp, spo2, bpm):
-    if 36 <= temp <= 37.2:
+    if 35 <= temp <= 37.2:
         return 'Normal'
 
     elif 37.2 < temp <= 38:
@@ -39,12 +39,22 @@ def startSensor():
 def main():
     dta = startSensor()
     status = logic(dta[0], dta[1], dta[2])
+
     print(f"Temperature     : {dta[0]}")
-    print(f'SPO2            : {dta[1]}')
-    print(f'BPM             : {dta[2]}')
+    print(f'BPM             : {dta[1]}')
+    print(f'SPO2            : {dta[2]}')
     print(status)
 
-    sendData(dta[2], 'Nauval', dta[1], status, dta[0])
+    sendData(dta[1], 'Nauval', dta[2], status, dta[0])
+    
+    if status == 'Normal':
+        LEDGreen_On()
+    elif status == 'Sakit ringan':
+        LEDRed_On()
+    elif status == 'Sakit parah':
+        for k in range(1,11):
+            LEDRed_On()
+            LEDRed_Off()
 
 if __name__ == '__main__':
     main()
