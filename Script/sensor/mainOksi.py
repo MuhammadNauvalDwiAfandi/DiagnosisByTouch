@@ -3,9 +3,9 @@ import time
 import max30102
 import hrcalc
 
-def Oksi(devStatus):
-    m = max30102.MAX30102()
+m = max30102.MAX30102()
 
+def Oksi(devStatus):
     hr2 = 0
     sp2 = 0
     red, ir = m.read_sequential()
@@ -24,12 +24,11 @@ def Oksi(devStatus):
             sp2 = int(sp)
             print("SPO2       : ",sp2)
 
-        m.shutdown()
-
-    return hr2, sp2
+    return hr2, sp2, hrb, spb
 
 if __name__ == '__main__':
     while True:
+
         Oksi(False)
         print('Tunggu 2 menit...')
         time.sleep(60)
