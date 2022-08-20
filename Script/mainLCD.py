@@ -1,5 +1,4 @@
 from rpi_lcd import LCD
-import time
 
 lcd = LCD()
 

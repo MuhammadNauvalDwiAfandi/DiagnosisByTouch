@@ -1,10 +1,15 @@
 import time
+from unicodedata import name
 
 from temperature import *
 from LED import *
 from Oksi import *
 from sendUbidots import *
+from rpi_lcd import LCD
 
+lcd = LCD()
+LEDRed_Off()
+LEDGreen_Off()
 LEDBlue_On()
 
 def logic(temp, spo2, bpm):
@@ -18,7 +23,7 @@ def logic(temp, spo2, bpm):
         return 'Sakit parah'
 
     else:
-        ...
+        return 'Sakit'
 
 def startSensor():
     '''
@@ -34,7 +39,14 @@ def startSensor():
 
     return temp[0], oks[0], oks[1]
 
-def main():
+def showLCD(status=None, temp=None, bpm=None, spo2=None):
+    '''
+    Show LCD Data from sensor
+    '''
+    lcd.text(status, 1)
+    lcd.text(f'T{temp}C HR{bpm} O2{spo2}', 2)
+
+def main(name):
     dta = startSensor()
     status = logic(dta[0], dta[1], dta[2])
 
@@ -43,11 +55,12 @@ def main():
     print(f'SPO2            : {dta[2]}')
     print(f'Health status   : {status}')
 
-    sendData(dta[1], 'Nauval', dta[2], status, dta[0])
+    sendData(dta[1], name, dta[2], status, dta[0])
+    showLCD(status, dta[0], dta[1], dta[2])
     
     if status == 'Normal':
         LEDGreen_On()
-    elif status == 'Sakit ringan':
+    elif status in ['Sakit ringan', 'Sakit']:
         LEDRed_On()
     elif status == 'Sakit parah':
         for k in range(1,11):
@@ -55,8 +68,10 @@ def main():
             LEDRed_Off()
 
 if __name__ == '__main__':
-    main()
+    name = input('Enter name: ')
+    main(name)
     time.sleep(10)
+    
     LEDBlue_Off()
     LEDGreen_Off()
     LEDRed_Off()
