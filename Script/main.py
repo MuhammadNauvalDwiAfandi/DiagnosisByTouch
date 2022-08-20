@@ -21,18 +21,14 @@ def logic(temp, spo2, bpm):
         ...
 
 def startSensor():
-    Oksi(False)
+    '''
+    Starting sensor, measure temperature, BPM, and SPO2
+    Return (temperature, bpm, spo2)
+    '''
+    print('Mengukur...')
 
-    print('Tunggun 2 menit...')
-    time.sleep(60)
-    print('1 menit lagi...')
-    time.sleep(30)
-    print('30 detik lagi...')
-    time.sleep(30)
-
-    oks = Oksi(True)
-    while not oks[2] and not oks[3]:
-        oks = Oksi(True)
+    oks = averageOksi()
+    time.sleep(5)
 
     temp = read_temp()
 
@@ -45,7 +41,7 @@ def main():
     print(f"Temperature     : {dta[0]}")
     print(f'BPM             : {dta[1]}')
     print(f'SPO2            : {dta[2]}')
-    print(status)
+    print(f'Health status   : {status}')
 
     sendData(dta[1], 'Nauval', dta[2], status, dta[0])
     
