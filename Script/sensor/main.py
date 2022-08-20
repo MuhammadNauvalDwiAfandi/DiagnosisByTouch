@@ -5,6 +5,8 @@ from LED import *
 from mainOksi import Oksi
 from sendUbidots import *
 
+LEDBlue_On()
+
 def logic(temp, spo2, bpm):
     if 35 <= temp <= 37.2:
         return 'Normal'
@@ -58,3 +60,8 @@ def main():
 
 if __name__ == '__main__':
     main()
+    time.sleep(10)
+    LEDBlue_Off()
+    LEDGreen_Off()
+    LEDRed_Off()
+    
