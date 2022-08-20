@@ -403,7 +403,7 @@ def averageOksi(statusPrint=True, banyak=20):
             sp2.append(dta[1])
 
     avhr = int(np.average(hr))
-    avsp2 = np.amax(sp2)
+    avsp2 = int(np.amax(sp2))
 
     return avhr, avsp2
 

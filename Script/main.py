@@ -44,7 +44,7 @@ def showLCD(status=None, temp=None, bpm=None, spo2=None):
     Show LCD Data from sensor
     '''
     lcd.text(status, 1)
-    lcd.text(f'T{temp}C HR{bpm} O2{spo2}', 2)
+    lcd.text(f'{temp}C H{bpm} O{spo2}', 2)
 
 def main(name):
     dta = startSensor()
