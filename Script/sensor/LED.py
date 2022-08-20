@@ -32,6 +32,20 @@ def LEDRed_Off():
     # pause for one second
     time.sleep(0.5)
 
+def LEDBlue_On():
+    GPIO.setup(40,GPIO.OUT)
+    # set GPIO-a pin to LOW
+    GPIO.output(40,GPIO.HIGH)
+    # pause for one second
+    time.sleep(0.5)
+
+def LEDBlue_Off():
+    GPIO.setup(40,GPIO.OUT)
+    # set GPIO-a pin to LOW
+    GPIO.output(40,GPIO.LOW)
+    # pause for one second
+    time.sleep(0.5)
+
 '''
 Note: 
 GPIO.setup(a,GPIO.OUT)
@@ -41,7 +55,7 @@ GPIO.output(a,GPIO.HIGH)
 '''
 if __name__ == '__main__':
     while True:
-        lampu = input('Green or Red: ')
+        lampu = input('Green, Red, or Blue: ')
         
         if lampu == 'Green':
             print('Selected: Green')
@@ -63,8 +77,8 @@ if __name__ == '__main__':
                 print('Invalid command!')
 
         elif lampu == 'Red':
-            kondisi = input('On or Off: ')
             print('Selected: Red')
+            kondisi = input('On or Off: ')
             time.sleep(1)
 
             if kondisi == 'On' or kondisi == 'on':
@@ -85,10 +99,30 @@ if __name__ == '__main__':
             for k in range(1,11):
                 LEDGreen_On()
                 LEDRed_On()
+                LEDBlue_On()
                 print('LED is on!')
                 LEDGreen_Off()
                 LEDRed_Off()
+                LEDBlue_Off()
                 print('LED is off!')
+
+        if lampu == 'Blue':
+            print('Selected: Blue')
+            kondisi = input('On or Off: ')
+
+            if kondisi == 'On' or kondisi == 'on':
+                LEDBlue_On()
+                print('LED is on!')
+                time.sleep(1)
+            
+            elif kondisi == 'Off' or kondisi == 'off':
+                LEDBlue_Off()
+                print('LED is off!')
+                time.sleep(1)
+
+            else:
+                print('Invalid command!')
+
 
         else:
             print('Invalid command!')
