@@ -14,17 +14,24 @@ We are using:
 
 
 ## Script Content
-
-All scripts can be found at *Script* folder
+**All Files at Script Folder**
 
 |File Name|Content  |
 |--|--|
 | temperature.py |All the functions necessary to read DS18B20 temperature sensor  |
-|maintem.py|Function to read and some logic to determine health based on body temperature|
+|~~maintem.py~~|~~Function to read and some logic to determine health based on body temperature~~ *(Merged all functionality to temperature.py)*|
 |LED.py|All functions for controlling LED light |
-|mainLED.py|Script to control LED light. Required LED.py|
+|~~mainLED.py~~|~~Script to control LED light. Required LED.py~~ *(Merged all functionality to LED.py)*|
 |mainLEDtem.py| Get temperature data using DS18B20 sensor, then using logic to control LED light with given data|
 |mainLEDsettem.py| Similar with mainLEDtem.py, instead of using data from actual sensor, user can input their own data to control LED light (for testing purpose)|
+|~~max30102.py~~|~~Contains a class which has some setup functions and sensor-reading functions~~ *(Moved all functionality to Oksi.py)*|
+|~~hrcalc.py~~| ~~Provides a function which calcs HR and SpO2~~ *(Moved all functionality to Oksi.py)*|
+|~~mainOksi.py~~|~~Run and read data from sensor, main script for Max30102~~ *(Moved all functionality to Oksi.py)*|
+|~~mainOksiTem.py~~|~~Combine Max30102 and DS18B20 sensor~~ *(Moved all functionality to main.py)*|
+|Oksi.py|All the functions necessary to run and read Max30102 sensor|
+|thingspeak.py| Contains class to send data to ThingSpeak|
+|sendSensorDataTS.py| Read from Max30102 and DS18B20 then send it to ThingSpeak|
+
 
 
 **Logic LED and Temperature**
@@ -34,7 +41,6 @@ mainLEDtem.py and mainLEDsettem.py logic:
  - Between 36C and 37,5C, show `Normal` and turn on LED Green
  - Between 37,5C and 38,5C, show `Sakit ringan` and turn on LED Red
  - Above 38,5C, show `Sakit parah` and make LED Red blink
-
 
 ## DS18B20 Setup
 **Wiring to Raspberry Pi**
@@ -77,6 +83,7 @@ Here we are using Python to show the temperature. In the *Script* folder, for DS
  - Run the script by typing `sudo python maintem.py` *Note: this script must be run by the root user*
  
  **Important Note**
+ 
 For now, this is just proof of concept!
 
 
@@ -110,3 +117,79 @@ Here we are using Python to change the LED state. In the *script* folder, for LE
  - In Raspberry Pi, using terminal, run mainLED.py `python mainLED.py`
  - Enter either `Green` or `Red`
  - Then enter either `On` or `Off` to control the LED
+
+
+## LCD I2C
+**Wiring to Raspberry Pi**
+
+| LCD I2C |Raspberry Pi  |
+|--|--|
+| GND | Raspberry Pi GND|
+| VCC | Raspberry Pi 5V|
+| SDA | Raspberry Pi GPIO2|
+| SCL | Raspberry Pi GPIO3|
+
+
+See wiring diagram at Design folder or at Documentation for RL application
+
+**Enable I2C**
+
+ - Open terminal, type `sudo raspi-config`
+ - Select *Interfacing Option*
+ - Enable *I2C*
+ - Back to terminal, then reboot system `sudo reboot`
+ - Open terminal again, type `i2cdetect -y 1`. The *i2cdetect* command can be used to see what is connected and what the addresses are. Most common are `27 hexadecimal`.
+
+**Install Python Library**
+
+ - Using terminal. type `sudo pip3 install rpi_lcd`
+ - This library has the default 27 address hard-coded. If your display has a different address, you will need to change it. Find the library using `sudo find /usr/local –name rpi_lcd 2> /dev/null`
+ - Find *rpi_lcd*, commonly it can be found at `/usr/local/lib/(python version)/dist-packages/rpi_lcd`
+ - Get into that directory using `cd /usr/local/lib/(python version)/dist-packages/rpi_lcd`
+ - Type `nano __init__.py`, locate `LCD class`, `def __init__(self, address = 27, ...)`
+ - Change `address = 27` to your address that show at `i2cdetect` command
+
+**Script**
+
+Here we are using Python to control the LCD. In the *script* folder, there is testLCD.py. It contains a function and some information about how to control the LCD.
+
+**How to Use**
+
+Using terminal, run the script `sudo python testLCD.py`
+
+## Max30102
+
+**Wiring to Raspiberry Pi**
+|Max30102|Raspberry Pi  |
+|--|--|
+|VIN|Raspberry Pi 3v3  |
+|GND|Raspberry Pi GND|
+|SCL|Raspberry Pi GPIO3|
+|SDA|Raspberry Pi GPIO2|
+|INT|Raspberry Pi GPIO4|
+
+
+See wiring diagram at Design folder or at Documentation for RL application
+
+**Enable I2C**
+
+ - Open terminal, type `sudo raspi-config`
+ - Select *Interfacing Option*
+ - Enable *I2C*
+ - Back to terminal, then reboot system `sudo reboot`
+
+**Install Required Python Library**
+
+ - Open terminal, type `sudo apt-get update` then `sudo apt-get install python-smbus python3-smbus python-dev python3-dev i2c-tools` This will install *smbus python library*
+ - If that doesn't work, try `sudo apt-get update` then `sudo apt-get install python3-smbus python3-dev i2c-tools`
+ - You also need *rpi.gpio module*, if it's not already installed, type `sudo apt-get update` then `sudo apt-get install rpi.gpio`
+
+**Script**
+
+Here we are using Python to read the sensor. All functions that are needed for the sensor to run are inside *Oksi.py* file. Running the file dirrectly will get and show sensor's data. You can also import this to another file to perform more complex logic.
+
+**How to Use**
+
+ - Run terminal and navigate to script folder, type `sudo python Oksi.py`
+ - Touch Max30102 using your finger and wait until the program is complete
+
