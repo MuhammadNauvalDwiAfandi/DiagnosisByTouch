@@ -1,8 +1,8 @@
 import time
 
-from temperature import read_rom, read_temp_raw, read_temp
+from temperature import *
 from LED import *
-from mainOksi import Oksi
+from Oksi import *
 from sendUbidots import *
 
 LEDBlue_On()
