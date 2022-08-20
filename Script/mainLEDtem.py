@@ -35,7 +35,7 @@ def logic(tmp):
             LEDRed_On()
             LEDRed_Off()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     while True:
         logic(temp_chk())
         time.sleep(1)

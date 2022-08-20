@@ -24,9 +24,10 @@ def logic(tmp):
             LEDRed_On()
             LEDRed_Off()
 
-while True:
-    setTem = float(input('Masukkan temperature: '))
-    logic(setTem)
+if __name__ == '__main__':
+    while True:
+        setTem = float(input('Masukkan temperature: '))
+        logic(setTem)
 
-    time.sleep(1)
-    input('Press enter key to continue...')
+        time.sleep(1)
+        input('Press enter key to continue...')
