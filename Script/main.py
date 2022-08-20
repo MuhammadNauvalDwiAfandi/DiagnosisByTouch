@@ -1,5 +1,5 @@
 import time
-from unicodedata import name
+import numpy as np
 
 from temperature import *
 from LED import *
@@ -25,6 +25,37 @@ def logic(temp, spo2, bpm):
     else:
         return 'Sakit'
 
+def averageOksi2(statusPrint=True, banyak=20):
+    '''
+    Find average hearth rate and spo2 measurment, accept bol int
+    Take minimum 100 value by default
+    Returning (averagehr, averagesp2)
+    '''
+    hr =[]
+    sp2 = []
+    
+    while len(hr) <= banyak or len(sp2) <= banyak:
+        dta = Oksi(statusPrint)
+
+        if dta[2]:
+            hr.append(dta[0])
+            lcd.clear()
+            lcd.text('Mengukur...', 1)
+
+        if dta[3]:
+            sp2.append(dta[1])
+            lcd.clear()
+            lcd.text('Mengukur...', 1)
+
+        if not dta[2] or not dta[3]:
+            lcd.text('Oksimeter:', 1)
+            lcd.text('Not detected', 2)
+
+    avhr = int(np.average(hr))
+    avsp2 = int(np.amax(sp2))
+
+    return avhr, avsp2
+
 def startSensor():
     '''
     Starting sensor, measure temperature, BPM, and SPO2
@@ -32,7 +63,7 @@ def startSensor():
     '''
     print('Mengukur...')
 
-    oks = averageOksi()
+    oks = averageOksi2()
     time.sleep(5)
 
     temp = read_temp()
@@ -68,11 +99,17 @@ def main(name):
             LEDRed_Off()
 
 if __name__ == '__main__':
+    lcd.text('Enter name...', 1)
     name = input('Enter name: ')
+    lcd.clear()
+    lcd.text('Mengukur...', 1)
     main(name)
     time.sleep(10)
     
     LEDBlue_Off()
     LEDGreen_Off()
     LEDRed_Off()
+
+    time.sleep(10)
+    lcd.clear()
     
