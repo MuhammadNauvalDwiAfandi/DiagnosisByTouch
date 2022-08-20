@@ -54,7 +54,7 @@ def randomData():
     value_2 = 'Nauval'
     value_3 = random.randint(90,100)
     value_4 = 'Normal'
-    value_5 = random.randint(37,40)
+    value_5 = round(random.uniform(37,42),1)
 
     return value_1, value_2, value_3, value_4, value_5
 
@@ -76,4 +76,4 @@ if __name__ == '__main__':
         val = randomData()
 
         sendData(val[0], val[1], val[2], val[3], val[4])
-        time.sleep(1)
+        time.sleep(2)
