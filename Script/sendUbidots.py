@@ -37,7 +37,7 @@ def post_request(payload):
         time.sleep(1)
 
         # Processes results
-        print(req.status_code, req.json())
+        # print(req.status_code, req.json())
         if status >= 400:
             print("[ERROR] Could not send data after 5 attempts, please check \
                 your token credentials and internet connection")
@@ -66,8 +66,15 @@ def sendData(value_1, value_2, value_3, value_4, value_5):
         value_1, value_2, value_3, value_4, value_5)
 
     print("[INFO] Attemping to send data")
-    print(payload)
+    # print(payload)
     post_request(payload)
+
+    print('[INFO] Data sent:')
+    print(f'[INFO] {VARIABLE_LABEL_1}: {value_1}')
+    print(f'[INFO] {VARIABLE_LABEL_2}: {value_2}')
+    print(f'[INFO] {VARIABLE_LABEL_3}: {value_3}')
+    print(f'[INFO] {VARIABLE_LABEL_4}: {value_4}')
+    print(f'[INFO] {VARIABLE_LABEL_5}: {value_5}')
     print("[INFO] finished")
 
 
@@ -76,4 +83,4 @@ if __name__ == '__main__':
         val = randomData()
 
         sendData(val[0], val[1], val[2], val[3], val[4])
-        time.sleep(2)
+        time.sleep(3)
