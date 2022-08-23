@@ -407,10 +407,15 @@ def averageOksi(statusPrint=True, banyak=20):
 
     return avhr, avsp2
 
+def shutDownOksi():
+    m.shutdown()
+    return True
+
 if __name__ == '__main__':
     while True:
         hasil = averageOksi()
         print(f'HR       : {hasil[0]}')
         print(f'SPO2     : {hasil[1]}')
+        shutDownOksi()
 
         input('Press enter key to continue')

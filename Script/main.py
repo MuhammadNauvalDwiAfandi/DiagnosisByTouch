@@ -133,8 +133,11 @@ if __name__ == '__main__':
     lcd.clear()
     lcd.text('Mengukur...', 1)
     main(name)
+
+    time.sleep(1)
+    shutDownOksi()
+
     time.sleep(10)
-    
     LEDBlue_Off()
     LEDGreen_Off()
     LEDRed_Off()
