@@ -384,7 +384,7 @@ def Oksi(statusPrint=False):
 
     return hr2, sp2, hrb, spb
 
-def averageOksi(statusPrint, banyak=100):
+def averageOksi(statusPrint=True, banyak=20):
     '''
     Find average hearth rate and spo2 measurment, accept bol int
     Take minimum 100 value by default
@@ -402,8 +402,8 @@ def averageOksi(statusPrint, banyak=100):
         if dta[3]:
             sp2.append(dta[1])
 
-    avhr = np.average(hr)
-    avsp2 = np.average(sp2)
+    avhr = int(np.average(hr))
+    avsp2 = int(np.amax(sp2))
 
     return avhr, avsp2
 

@@ -66,20 +66,31 @@ def sendData(value_1, value_2, value_3, value_4, value_5):
         value_1, value_2, value_3, value_4, value_5)
 
     print("[INFO] Attemping to send data")
+
+    attempt = 0
     # print(payload)
-    post_request(payload)
 
-    print('[INFO] Data sent:')
-    print(f'[INFO] {VARIABLE_LABEL_1}: {value_1}')
-    print(f'[INFO] {VARIABLE_LABEL_2}: {value_2}')
-    print(f'[INFO] {VARIABLE_LABEL_3}: {value_3}')
-    print(f'[INFO] {VARIABLE_LABEL_4}: {value_4}')
-    print(f'[INFO] {VARIABLE_LABEL_5}: {value_5}')
-    print("[INFO] finished")
+    for attempt in range(1,6):
+        print(f'[INFO] Attempt #{attempt}')
+        a = post_request(payload)
 
+        if a:
+
+            print('[INFO] Data sent:')
+            print(f'[INFO] {VARIABLE_LABEL_1}: {value_1}')
+            print(f'[INFO] {VARIABLE_LABEL_2}: {value_2}')
+            print(f'[INFO] {VARIABLE_LABEL_3}: {value_3}')
+            print(f'[INFO] {VARIABLE_LABEL_4}: {value_4}')
+            print(f'[INFO] {VARIABLE_LABEL_5}: {value_5}')
+            print("[INFO] finished")
+
+            return True
+        attempt += 1
+    print('Failed to send data after 5 attempt!')
+    return False
 
 if __name__ == '__main__':
-    while (True):
+    while True:
         val = randomData()
 
         sendData(val[0], val[1], val[2], val[3], val[4])
