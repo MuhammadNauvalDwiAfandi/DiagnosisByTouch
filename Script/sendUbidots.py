@@ -4,6 +4,8 @@ import os
 from dotenv import load_dotenv
 import random
 
+from location import getLocation, buildLocation
+
 load_dotenv()
 
 # TOKEN = "..."  # Put your TOKEN here
@@ -14,14 +16,32 @@ VARIABLE_LABEL_2 = os.getenv('VARIABLE_LABEL_2')
 VARIABLE_LABEL_3 = os.getenv('VARIABLE_LABEL_3')
 VARIABLE_LABEL_4 = os.getenv('VARIABLE_LABEL_4')
 VARIABLE_LABEL_5 = os.getenv('VARIABLE_LABEL_5')
+VARIABLE_LABEL_6 = os.getenv('VARIABLE_LABEL_6')
 
 VARIABLE_ID = os.getenv('VARIABLE_ID')  # Put your first variable label here
 
 
-def build_payload(variable_1, variable_2, variable_3, variable_4, variable_5, 
-                    value_1, value_2, value_3, value_4, value_5):
+def build_payload(variable_1, variable_2, variable_3, variable_4, variable_5, variable_6,
+                    value_1, value_2, value_3, value_4, value_5, value_6):
 
-    payload = {variable_1: value_1, variable_2: {'value': 2, 'context':{'name': value_2}}, variable_3: value_3, variable_4: {'value': 4, 'context':{'name': value_4}}, variable_5: value_5}
+    payload = {
+                variable_1: value_1, 
+                variable_2: {
+                                'value': 2, 
+                                'context':{
+                                            'name': value_2
+                                          }
+                            }, 
+                variable_3: value_3, 
+                variable_4: {
+                                'value': 4, 
+                                'context':{
+                                            'name': value_4
+                                          }
+                            }, 
+                variable_5: value_5, 
+                variable_6: value_6
+              }
 
     return payload
 
@@ -59,11 +79,11 @@ def randomData():
     return value_1, value_2, value_3, value_4, value_5
 
 
-def sendData(value_1, value_2, value_3, value_4, value_5):
+def sendData(value_1, value_2, value_3, value_4, value_5, value_6):
 
     payload = build_payload(
         VARIABLE_LABEL_1, VARIABLE_LABEL_2, VARIABLE_LABEL_3, VARIABLE_LABEL_4, VARIABLE_LABEL_5,
-        value_1, value_2, value_3, value_4, value_5)
+        VARIABLE_LABEL_6, value_1, value_2, value_3, value_4, value_5, value_6)
 
     print("[INFO] Attemping to send data")
 
@@ -82,6 +102,7 @@ def sendData(value_1, value_2, value_3, value_4, value_5):
             print(f'[INFO] {VARIABLE_LABEL_3}: {value_3}')
             print(f'[INFO] {VARIABLE_LABEL_4}: {value_4}')
             print(f'[INFO] {VARIABLE_LABEL_5}: {value_5}')
+            print(f'[INFO] {VARIABLE_LABEL_6}: {value_6}')
             print("[INFO] finished")
 
             return True
@@ -92,6 +113,7 @@ def sendData(value_1, value_2, value_3, value_4, value_5):
 if __name__ == '__main__':
     while True:
         val = randomData()
+        location = buildLocation()
 
-        sendData(val[0], val[1], val[2], val[3], val[4])
+        sendData(val[0], val[1], val[2], val[3], val[4], location)
         time.sleep(3)

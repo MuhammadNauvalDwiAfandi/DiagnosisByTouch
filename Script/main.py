@@ -6,6 +6,7 @@ from temperature import *
 from LED import *
 from Oksi import *
 from sendUbidots import *
+from location import getLocation, buildLocation
 from rpi_lcd import LCD
 
 lcd = LCD()
@@ -106,13 +107,15 @@ def showLCD(status=None, temp=None, bpm=None, spo2=None):
 def main(name):
     dta = startSensor()
     status = logic(dta[0], dta[2], dta[1])
+    loc = buildLocation()
 
     print(f"Temperature     : {dta[0]}")
     print(f'BPM             : {dta[1]}')
     print(f'SPO2            : {dta[2]}')
     print(f'Health status   : {status}')
+    print(f'Location        : {loc}')
 
-    sendData(dta[1], name, dta[2], status, dta[0])
+    sendData(dta[1], name, dta[2], status, dta[0], loc)
     showLCD(status, dta[0], dta[1], dta[2])
     
     if status == 'Normal':
