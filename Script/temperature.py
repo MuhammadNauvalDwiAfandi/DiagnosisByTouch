@@ -32,9 +32,17 @@ def read_temp():
     if equals_pos != -1:
         # Read the temperature .
         temp_string = lines[1][equals_pos+2:]
-        temp_c = round(float(temp_string) / 1000.0, 1)
-        temp_f = round(temp_c * 9.0 / 5.0 + 32.0, 1)
-        return temp_c, temp_f
+        temp_c = float(temp_string) / 1000.0
+        temp_c_calibrated = round(tempCalibrate(temp_c), 1)
+        temp_f_calibrated = round(temp_c_calibrated * 9.0 / 5.0 + 32.0, 1)
+        return temp_c_calibrated, temp_f_calibrated
+
+def tempCalibrate(temp):
+    '''
+    Calibrate temperature, accept celcius
+    '''
+    caltem = temp * 0.69086 + 12.85
+    return caltem
 
 def temp_chk():
     print(' rom: '+ read_rom())
