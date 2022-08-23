@@ -1,3 +1,4 @@
+import re
 import time
 import numpy as np
 
@@ -13,17 +14,42 @@ LEDGreen_Off()
 LEDBlue_On()
 
 def logic(temp, spo2, bpm):
-    if 35 <= temp <= 37.2:
-        return 'Normal'
-
-    elif 37.2 < temp <= 38:
-        return 'Sakit ringan'
-
-    elif temp > 38:
+    '''
+    Check condition using temperature, spo2, and bpm
+    Take argument temp, spo2, bpm
+    '''
+    if spo2 <= 90:
         return 'Sakit parah'
+    
+    elif 90 < spo2 <= 95:
+        if 36.5 <= temp <= 38.5:
+            return 'Sakit'
 
-    else:
-        return 'Sakit'
+        elif temp > 38.5:
+            return 'Sakit parah'
+
+        else:
+            return 'Sakit'
+
+    elif 95 < spo2 <= 100:
+        if 36.5 <= temp <= 37.5:
+            if bpm < 60:
+                return 'Sakit'
+
+            elif 60 <= bpm <= 100:
+                return 'Normal'
+
+            else:
+                return 'Sakit parah'
+
+        elif 37.5 < temp <= 38.5:
+            return 'Sakit'
+
+        elif temp > 38.5:
+            return 'Sakit parah'
+
+        else:
+            return 'Sakit'
 
 def averageOksi2(statusPrint=True, banyak=20):
     '''
@@ -79,7 +105,7 @@ def showLCD(status=None, temp=None, bpm=None, spo2=None):
 
 def main(name):
     dta = startSensor()
-    status = logic(dta[0], dta[1], dta[2])
+    status = logic(dta[0], dta[2], dta[1])
 
     print(f"Temperature     : {dta[0]}")
     print(f'BPM             : {dta[1]}')
@@ -91,7 +117,7 @@ def main(name):
     
     if status == 'Normal':
         LEDGreen_On()
-    elif status in ['Sakit ringan', 'Sakit']:
+    elif status == 'Sakit':
         LEDRed_On()
     elif status == 'Sakit parah':
         for k in range(1,11):
