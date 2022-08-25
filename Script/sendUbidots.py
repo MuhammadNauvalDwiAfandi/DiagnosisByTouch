@@ -80,6 +80,9 @@ def randomData():
 
 
 def sendData(value_1, value_2, value_3, value_4, value_5, value_6):
+    '''
+    Send data to Ubidots
+    '''
 
     payload = build_payload(
         VARIABLE_LABEL_1, VARIABLE_LABEL_2, VARIABLE_LABEL_3, VARIABLE_LABEL_4, VARIABLE_LABEL_5,

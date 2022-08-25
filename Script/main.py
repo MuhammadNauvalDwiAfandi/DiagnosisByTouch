@@ -1,13 +1,13 @@
-import re
 import time
 import numpy as np
 
-from temperature import *
-from LED import *
-from Oksi import *
-from sendUbidots import *
-from location import getLocation, buildLocation
 from rpi_lcd import LCD
+from temperature import read_temp
+from LED import *
+from Oksi import Oksi, shutDownOksi
+from sendUbidots import sendData
+from location import buildLocation
+from sendDataMongoDB import buildData, getTime, sendDataMongoDB, getLatestData
 
 lcd = LCD()
 LEDRed_Off()
@@ -108,6 +108,7 @@ def main(name):
     dta = startSensor()
     status = logic(dta[0], dta[2], dta[1])
     loc = buildLocation()
+    waktu = getTime()
 
     print(f"Temperature     : {dta[0]}")
     print(f'BPM             : {dta[1]}')
@@ -117,6 +118,19 @@ def main(name):
 
     sendData(dta[1], name, dta[2], status, dta[0], loc)
     showLCD(status, dta[0], dta[1], dta[2])
+
+    latestMongoDB = getLatestData()
+
+    if latestMongoDB is None:
+        mongoData = buildData(1, dta[0], dta[2], dta[1], status, waktu, loc)
+    else:
+        idNew = latestMongoDB['id'] + 1
+        mongoData = buildData(idNew, dta[0], dta[2], dta[1], status, waktu, loc)
+
+    try:
+        sendDataMongoDB(mongoData)
+    except:
+        print('[INFO] Cannot send data to MongoDB')
     
     if status == 'Normal':
         LEDGreen_On()
