@@ -79,17 +79,20 @@ def averageOksi2(statusPrint=True, banyak=20):
 
         if not dta[2] or not dta[3]:
             lcd.text('Oksimeter:', 1)
+            time.sleep(0.5)
             lcd.text('Not detected', 2)
 
             dta = Oksi(statusPrint)
             if dta[2]:
                 hr.append(dta[0])
                 lcd.clear()
+                time.sleep(0.5)
                 lcd.text('Mengukur...', 1)
 
             if dta[3]:
                 sp2.append(dta[1])
                 lcd.clear()
+                time.sleep(0.5)
                 lcd.text('Mengukur...', 1)
 
     avhr = int(np.average(hr))
