@@ -67,12 +67,18 @@ def averageOksi2(statusPrint=True, banyak=20):
     '''
     hr =[]
     sp2 = []
+    sw = False
     
     while len(hr) <= banyak or len(sp2) <= banyak:
         dta = Oksi(statusPrint)
 
         if dta[2]:
-            hr.append(dta[0])
+            if dta[0] < 40:
+                hr.append(40)
+            elif dta[0] > 130:
+                hr.append(130)
+            else:
+                hr.append(dta[0])
 
         if dta[3]:
             sp2.append(dta[1])
@@ -81,19 +87,13 @@ def averageOksi2(statusPrint=True, banyak=20):
             lcd.text('Oksimeter:', 1)
             time.sleep(0.5)
             lcd.text('Not detected', 2)
-
-            dta = Oksi(statusPrint)
-            if dta[2]:
-                hr.append(dta[0])
+            sw = True          #LCD menunjukkan selain mengukur... -> sw = True
+        else:
+            if sw:
                 lcd.clear()
                 time.sleep(0.5)
                 lcd.text('Mengukur...', 1)
-
-            if dta[3]:
-                sp2.append(dta[1])
-                lcd.clear()
-                time.sleep(0.5)
-                lcd.text('Mengukur...', 1)
+                sw = False      #LCD menunjukkan mengukur... -> sw = False
 
     avhr = int(np.average(hr))
     avsp2 = int(np.amax(sp2))
