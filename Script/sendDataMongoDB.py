@@ -50,13 +50,14 @@ def initializeDatabase():
 
     return my_collections
 
-def buildData(id, temperature, spo2, hearth_rate, status, timestamp, location):
+def buildData(id, name, temperature, spo2, hearth_rate, status, timestamp, location):
     '''
     Accept arguments: id, temperature, spo2, hearth_rate, timestamp, location\n
     timestamp dict {date, time}, location {latitude, longitude}
     '''
     data = {
                 'id'                : id,
+                'name'              : name,
                 'temperature'       : temperature,
                 'spo2'              : spo2,
                 'hearth rate'       : hearth_rate,

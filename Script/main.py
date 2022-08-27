@@ -40,7 +40,7 @@ def logic(temp, spo2, bpm):
             return 'Sakit'
 
     elif 95 < spo2 <= 100:
-        if 36.5 <= temp <= 37.5:
+        if 36 <= temp <= 37.5:
             if bpm < 60:
                 return 'Sakit'
 
@@ -139,10 +139,10 @@ def main(name):
     latestMongoDB = getLatestData()
 
     if latestMongoDB is None:
-        mongoData = buildData(1, dta[0], dta[2], dta[1], status, waktu, loc)
+        mongoData = buildData(1, name, dta[0], dta[2], dta[1], status, waktu, loc)
     else:
         idNew = latestMongoDB['id'] + 1
-        mongoData = buildData(idNew, dta[0], dta[2], dta[1], status, waktu, loc)
+        mongoData = buildData(idNew, name, dta[0], dta[2], dta[1], status, waktu, loc)
 
     try:
         sendDataMongoDB(mongoData)
