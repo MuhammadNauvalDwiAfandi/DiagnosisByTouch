@@ -15,12 +15,11 @@ def getLocation():
     except:
         print('Error make sure you have Geo-Coder Installed ')
 
-def buildLocation():
+def buildLocation(lat, long):
     '''
     :return: {"latitude" : xxx, "longitude" : xxx}
     '''
-    tmploc = getLocation()
-    location = {"latitude" : tmploc[0], "longitude" : tmploc[1]}
+    location = {"latitude" : lat, "longitude" : long}
     return location
 
 if __name__ == '__main__':

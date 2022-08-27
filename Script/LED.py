@@ -18,28 +18,28 @@ def LEDGreen_Off():
     # pause for one second
     time.sleep(0.5)
 
-def LEDRed_On():
+def LEDBlue_On():
     GPIO.setup(24,GPIO.OUT)
     # set GPIO-a pin to LOW
     GPIO.output(24,GPIO.HIGH)
     # pause for one second
     time.sleep(0.5)
 
-def LEDRed_Off():
+def LEDBlue_Off():
     GPIO.setup(24,GPIO.OUT)
     # set GPIO-a pin to LOW
     GPIO.output(24,GPIO.LOW)
     # pause for one second
     time.sleep(0.5)
 
-def LEDBlue_On():
+def LEDRed_On():
     GPIO.setup(40,GPIO.OUT)
     # set GPIO-a pin to LOW
     GPIO.output(40,GPIO.HIGH)
     # pause for one second
     time.sleep(0.5)
 
-def LEDBlue_Off():
+def LEDRed_Off():
     GPIO.setup(40,GPIO.OUT)
     # set GPIO-a pin to LOW
     GPIO.output(40,GPIO.LOW)

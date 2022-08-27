@@ -1,5 +1,7 @@
 import time
+import os
 import numpy as np
+from dotenv import load_dotenv
 
 from rpi_lcd import LCD
 from temperature import read_temp
@@ -8,6 +10,11 @@ from Oksi import Oksi, shutDownOksi
 from sendUbidots import sendData
 from location import buildLocation
 from sendDataMongoDB import buildData, getTime, sendDataMongoDB, getLatestData
+
+load_dotenv()
+
+LATITUDE=float(os.getenv('LATITUDE'))
+LONGITUDE=float(os.getenv('LONGITUDE'))
 
 lcd = LCD()
 LEDRed_Off()
@@ -66,17 +73,24 @@ def averageOksi2(statusPrint=True, banyak=20):
 
         if dta[2]:
             hr.append(dta[0])
-            lcd.clear()
-            lcd.text('Mengukur...', 1)
 
         if dta[3]:
             sp2.append(dta[1])
-            lcd.clear()
-            lcd.text('Mengukur...', 1)
 
         if not dta[2] or not dta[3]:
             lcd.text('Oksimeter:', 1)
             lcd.text('Not detected', 2)
+
+            dta = Oksi(statusPrint)
+            if dta[2]:
+                hr.append(dta[0])
+                lcd.clear()
+                lcd.text('Mengukur...', 1)
+
+            if dta[3]:
+                sp2.append(dta[1])
+                lcd.clear()
+                lcd.text('Mengukur...', 1)
 
     avhr = int(np.average(hr))
     avsp2 = int(np.amax(sp2))
@@ -107,7 +121,7 @@ def showLCD(status=None, temp=None, bpm=None, spo2=None):
 def main(name):
     dta = startSensor()
     status = logic(dta[0], dta[2], dta[1])
-    loc = buildLocation()
+    loc = buildLocation(LATITUDE, LONGITUDE)
     waktu = getTime()
 
     print(f"Temperature     : {dta[0]}")
@@ -152,7 +166,6 @@ if __name__ == '__main__':
     shutDownOksi()
 
     time.sleep(10)
-    LEDBlue_Off()
     LEDGreen_Off()
     LEDRed_Off()
 
