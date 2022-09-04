@@ -2,7 +2,7 @@
 This project is made for Samsung Innovation Campus Batch 3 Stage 3. This repository was made to track the progress we make to build an IoT device.
 
 You can see the full design here:
-[Product Design](https://docs.google.com/presentation/d/1qDALvNa_1nn2KUcgnvzO5qR8LjPEqhXRsp-H-NQz1CA/edit?usp=sharing)
+[Product Design](https://docs.google.com/presentation/d/1X4S7OHgEltPV4uqPD-Z991j0jWk4kUk-/edit?usp=sharing&ouid=100909576299268218717&rtpof=true&sd=true)
 
 We are using:
 
@@ -16,21 +16,33 @@ We are using:
 ## Script Content
 **All Files at Script Folder**
 
+Script needed for this IoT project
+
 |File Name|Content  |
 |--|--|
+| .env|Configuration file |
+| LED.py|All functions for controlling LED light |
+| Oksi.py|All the functions necessary to run and read Max30102 sensor |
+| location.py|Get device location data |
+| main.py|Main script for IoT project |
+| sendDataMongoDB.py|Function to send, read, update, and delete data to MongoDB |
+| sendUbidots.py|Function to send data to Ubidots |
 | temperature.py |All the functions necessary to read DS18B20 temperature sensor  |
+
+**All files at TestScript Folder**
+
+All script to test components in this IoT project
+
+**Unused Script**
+
+|File Name|Content  |
+|--|--|
 |~~maintem.py~~|~~Function to read and some logic to determine health based on body temperature~~ *(Merged all functionality to temperature.py)*|
-|LED.py|All functions for controlling LED light |
 |~~mainLED.py~~|~~Script to control LED light. Required LED.py~~ *(Merged all functionality to LED.py)*|
-|mainLEDtem.py| Get temperature data using DS18B20 sensor, then using logic to control LED light with given data|
-|mainLEDsettem.py| Similar with mainLEDtem.py, instead of using data from actual sensor, user can input their own data to control LED light (for testing purpose)|
 |~~max30102.py~~|~~Contains a class which has some setup functions and sensor-reading functions~~ *(Moved all functionality to Oksi.py)*|
 |~~hrcalc.py~~| ~~Provides a function which calcs HR and SpO2~~ *(Moved all functionality to Oksi.py)*|
 |~~mainOksi.py~~|~~Run and read data from sensor, main script for Max30102~~ *(Moved all functionality to Oksi.py)*|
 |~~mainOksiTem.py~~|~~Combine Max30102 and DS18B20 sensor~~ *(Moved all functionality to main.py)*|
-|Oksi.py|All the functions necessary to run and read Max30102 sensor|
-|thingspeak.py| Contains class to send data to ThingSpeak|
-|sendSensorDataTS.py| Read from Max30102 and DS18B20 then send it to ThingSpeak|
 
 
 
