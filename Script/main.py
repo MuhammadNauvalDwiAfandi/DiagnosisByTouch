@@ -133,9 +133,25 @@ def main(name):
     print(f'Health status   : {status}')
     print(f'Location        : {loc}')
 
+    lcd.clear()
+    time.sleep(0.1)
+    lcd.text('Sending data', 1)
+    time.sleep(0.1)
+    lcd.text('to database',2)
+
     sendData(dta[1], name, dta[2], status, dta[0], loc)
+    time.sleep(0.5)
     showLCD(status, dta[0], dta[1], dta[2])
 
+    if status == 'Normal':
+        LEDGreen_On()
+    elif status == 'Sakit':
+        LEDRed_On()
+    elif status == 'Sakit parah':
+        for k in range(1,11):
+            LEDRed_On()
+            LEDRed_Off()
+            
     latestMongoDB = getLatestData()
 
     if latestMongoDB is None:
@@ -149,29 +165,22 @@ def main(name):
     except:
         print('[INFO] Cannot send data to MongoDB')
     
-    if status == 'Normal':
-        LEDGreen_On()
-    elif status == 'Sakit':
-        LEDRed_On()
-    elif status == 'Sakit parah':
-        for k in range(1,11):
-            LEDRed_On()
-            LEDRed_Off()
 
 if __name__ == '__main__':
-    lcd.text('Enter name...', 1)
-    name = input('Enter name: ')
-    lcd.clear()
-    lcd.text('Mengukur...', 1)
-    main(name)
+    while True:
+        lcd.text('Enter name...', 1)
+        name = input('Enter name: ')
+        lcd.clear()
+        lcd.text('Mengukur...', 1)
+        main(name)
 
-    time.sleep(1)
-    shutDownOksi()
+        time.sleep(1)
+        shutDownOksi()
 
-    time.sleep(10)
-    LEDGreen_Off()
-    LEDRed_Off()
+        time.sleep(10)
+        LEDGreen_Off()
+        LEDRed_Off()
 
-    time.sleep(10)
-    lcd.clear()
+        time.sleep(10)
+        lcd.clear()
     
