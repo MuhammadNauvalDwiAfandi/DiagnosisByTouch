@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from rpi_lcd import LCD
 from temperature import read_temp
 from LED import *
-from Oksi import Oksi, shutDownOksi
+from Oksi import Oksi, shutDownOksi, resetOksi
 from sendUbidots import sendData
 from location import buildLocation
 from sendDataMongoDB import buildData, getTime, sendDataMongoDB, getLatestData
@@ -68,6 +68,8 @@ def averageOksi2(statusPrint=True, banyak=20):
     hr =[]
     sp2 = []
     sw = False
+
+    resetOksi()
     
     while len(hr) <= banyak or len(sp2) <= banyak:
         dta = Oksi(statusPrint)
@@ -167,20 +169,37 @@ def main(name):
     
 
 if __name__ == '__main__':
-    while True:
-        lcd.text('Enter name...', 1)
-        name = input('Enter name: ')
-        lcd.clear()
-        lcd.text('Mengukur...', 1)
-        main(name)
+    LEDBlue_On()
+    try:
+        while True:
+            lcd.text('Enter name...', 1)
+            name = input('Enter name: ')
+            lcd.clear()
+            lcd.text('Mengukur...', 1)
+            main(name)
 
-        time.sleep(1)
+            time.sleep(1)
+            shutDownOksi()
+
+            time.sleep(10)
+            LEDGreen_Off()
+            LEDRed_Off()
+
+            time.sleep(10)
+            lcd.clear()
+    
+    except KeyboardInterrupt:
+        print('Keyboard interupt!')
+        lcd.text('Program stopped', 1)
+        lcd.text('Manual stop', 2)
+
         shutDownOksi()
+        print('[Info] Oksimeter shuted down')
 
-        time.sleep(10)
-        LEDGreen_Off()
-        LEDRed_Off()
+        LEDOffAll()
+        print('[INFO] LED shuted down!')
 
-        time.sleep(10)
+        time.sleep(120)
+
         lcd.clear()
     

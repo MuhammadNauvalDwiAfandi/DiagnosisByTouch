@@ -60,15 +60,15 @@ class MAX30102():
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.interrupt, GPIO.IN)
 
-        self.reset()
+        # self.reset()
 
-        time.sleep(1)  # wait 1 sec
+        # time.sleep(1)  # wait 1 sec
 
-        # read & clear interrupt register (read 1 byte)
-        reg_data = self.bus.read_i2c_block_data(self.address, REG_INTR_STATUS_1, 1)
-        # print("[SETUP] reset complete with interrupt register0: {0}".format(reg_data))
-        self.setup()
-        # print("[SETUP] setup complete")
+        # # read & clear interrupt register (read 1 byte)
+        # reg_data = self.bus.read_i2c_block_data(self.address, REG_INTR_STATUS_1, 1)
+        # # print("[SETUP] reset complete with interrupt register0: {0}".format(reg_data))
+        # self.setup()
+        # # print("[SETUP] setup complete")
 
     def shutdown(self):
         """
@@ -392,6 +392,8 @@ def averageOksi(statusPrint=True, banyak=20):
     '''
     hr =[]
     sp2 = []
+
+    resetOksi()
     
     while len(hr) <= banyak or len(sp2) <= banyak:
         dta = Oksi(statusPrint)
@@ -410,6 +412,15 @@ def averageOksi(statusPrint=True, banyak=20):
 def shutDownOksi():
     m.shutdown()
     return True
+
+def resetOksi():
+    m.reset()
+
+    time.sleep(1)
+
+    reg_data = m.bus.read_i2c_block_data(m.address, REG_INTR_STATUS_1, 1)
+        # print("[SETUP] reset complete with interrupt register0: {0}".format(reg_data))
+    m.setup()
 
 if __name__ == '__main__':
     while True:

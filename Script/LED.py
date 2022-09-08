@@ -46,6 +46,16 @@ def LEDRed_Off():
     # pause for one second
     time.sleep(0.5)
 
+def LEDOnAll():
+    LEDRed_On()
+    LEDGreen_On()
+    LEDBlue_On()
+
+def LEDOffAll():
+    LEDRed_Off()
+    LEDGreen_Off()
+    LEDBlue_Off()
+
 '''
 Note: 
 GPIO.setup(a,GPIO.OUT)
