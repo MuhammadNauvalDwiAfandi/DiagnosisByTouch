@@ -205,3 +205,15 @@ Here we are using Python to read the sensor. All functions that are needed for t
  - Run terminal and navigate to script folder, type `sudo python Oksi.py`
  - Touch Max30102 using your finger and wait until the program is complete
 
+## How to Setup
+
+Here's how to set up this project
+
+- Install all the components as shown below
+![Wiring diagram](https://raw.githubusercontent.com/MuhammadNauvalDwiAfandi/DiagnosisByTouch/master/Design/Schematic_bb.jpg)*You can also download wiring diagram in fritzing format [here](https://github.com/MuhammadNauvalDwiAfandi/DiagnosisByTouch/raw/master/Design/Schematic.fzz)*
+- Download all the script from **Script** folder and put it into **one folder**. Download it [here](https://github.com/MuhammadNauvalDwiAfandi/DiagnosisByTouch/tree/master/Script)
+- Download [requirement.txt](https://github.com/MuhammadNauvalDwiAfandi/DiagnosisByTouch/blob/master/requirement.txt)
+- Install all the requirements by opening a terminal and type `pip install -r requirement.txt`
+- Enable i2c and 1-wire, type `sudo raspi-config`, *Interfacing Option*, enable *I2C* and *1-Wire*
+- Reboot system
+- Run main script by typing `sudo python main.py`
