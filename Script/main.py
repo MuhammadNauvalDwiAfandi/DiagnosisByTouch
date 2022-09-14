@@ -1,5 +1,6 @@
 import time
 import os
+from types import NoneType
 import numpy as np
 from dotenv import load_dotenv
 
@@ -44,11 +45,8 @@ def logic(temp, spo2, bpm):
             if bpm < 60:
                 return 'Sakit'
 
-            elif 60 <= bpm <= 100:
-                return 'Normal'
-
             else:
-                return 'Sakit parah'
+                return 'Normal'
 
         elif 37.5 < temp <= 38.5:
             return 'Sakit'
@@ -141,7 +139,13 @@ def main(name):
     time.sleep(0.1)
     lcd.text('to database',2)
 
-    sendData(dta[1], name, dta[2], status, dta[0], loc)
+    try:
+        sendData(dta[1], name, dta[2], status, dta[0], loc)
+
+    except TypeError:
+        lcd.text('Cannot send data', 1)
+        lcd.text('to Ubidots', 2)
+
     time.sleep(0.5)
     showLCD(status, dta[0], dta[1], dta[2])
 
@@ -154,16 +158,16 @@ def main(name):
             LEDRed_On()
             LEDRed_Off()
             
-    latestMongoDB = getLatestData()
-
-    if latestMongoDB is None:
-        mongoData = buildData(1, name, dta[0], dta[2], dta[1], status, waktu, loc)
-    else:
-        idNew = latestMongoDB['id'] + 1
-        mongoData = buildData(idNew, name, dta[0], dta[2], dta[1], status, waktu, loc)
-
     try:
-        sendDataMongoDB(mongoData)
+        latestMongoDB = getLatestData()
+
+        if latestMongoDB is None:
+            mongoData = buildData(1, name, dta[0], dta[2], dta[1], status, waktu, loc)
+        else:
+            idNew = latestMongoDB['id'] + 1
+            mongoData = buildData(idNew, name, dta[0], dta[2], dta[1], status, waktu, loc)
+
+            sendDataMongoDB(mongoData)
     except:
         print('[INFO] Cannot send data to MongoDB')
     
