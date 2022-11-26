@@ -1,5 +1,5 @@
 ## DIAGNOSIS BY TOUCH
-This project is made for Samsung Innovation Campus Batch 3 Stage 3. This repository was made to track the progress we make to build an IoT device.
+This project is made for 'Lomba Produk Pembelajaran'. This repository was made to track the progress we make to build an IoT device.
 
 You can see the full design here:
 [Product Design](https://docs.google.com/presentation/d/1X4S7OHgEltPV4uqPD-Z991j0jWk4kUk-/edit?usp=sharing&ouid=100909576299268218717&rtpof=true&sd=true)
